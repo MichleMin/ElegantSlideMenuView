@@ -9,7 +9,7 @@
     * 手动导入：直接将 ElegantSlideMenuView.xcodeproj 文件拽入项目中，导入文件：import ElegantSlideMenuView
 
 ## 二. Example 例子
-    ```swift
+```swift
     let titles = ["推荐","下线","餐厨","配件","服装","洗护","婴童","杂货"]
     elegantSlideMenuView = ElegantSlideMenuView(frame: CGRect(x: 0, y: 64, width: self.view.frame.size.width, height: self.view.frame.size.height))
     elegantSlideMenuView.isAutomatic = true
@@ -35,7 +35,7 @@
     elegantSlideMenuView.refreshDataBlock = { index in
         print("\(index)")
     }
-    ```
+```
     * 更多使用例子，请看工程里面的Demo
 ## 三. Requirements 要求
     - iOS 8.0+ / macOS 10.10+ / tvOS 9.0+ / watchOS 2.0+
