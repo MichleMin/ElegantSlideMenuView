@@ -25,9 +25,11 @@ class ViewController: UIViewController {
     }
 
     func initSliderMenuView() {
-        let titles = ["推荐","居家","餐厨","配件","服装","洗护","婴童","杂货"]
+        let titles = ["推荐","下线","餐厨","配件","服装","洗护","婴童","杂货"]
         elegantSlideMenuView = ElegantSlideMenuView(frame: CGRect(x: 0, y: 64, width: self.view.frame.size.width, height: self.view.frame.size.height))
         elegantSlideMenuView.isAutomatic = true
+        elegantSlideMenuView.tabItemSelectedTitleColor = UIColor.blue
+        elegantSlideMenuView.defaultSelectedIndex = 1
         getElegantSlideMenuView(titles: titles)
         self.view.addSubview(elegantSlideMenuView)
         elegantSlideMenuView.viewArray = elegantSlideMenuViewArray
@@ -45,6 +47,12 @@ class ViewController: UIViewController {
         for i in 0..<titles.count{
             if i == 0{
                 let demoBaseView = DemoBaseView(frame: frame)
+                var slideMenuDto = ElegantSlideMenuDto()
+                slideMenuDto.title = titles[i]
+                slideMenuDto.view = demoBaseView
+                elegantSlideMenuViewArray.append(slideMenuDto)
+            }else if i == 1{
+                let demoBaseView = MySubordinateTableView(frame: frame)
                 var slideMenuDto = ElegantSlideMenuDto()
                 slideMenuDto.title = titles[i]
                 slideMenuDto.view = demoBaseView

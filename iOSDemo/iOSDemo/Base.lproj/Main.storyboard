@@ -98,7 +98,7 @@
             </objects>
             <point key="canvasLocation" x="1802" y="124"/>
         </scene>
-        <!--Demo_01-->
+        <!--不可滑动导航栏-->
         <scene sceneID="WQf-q8-LOX">
             <objects>
                 <viewController storyboardIdentifier="ViewController" automaticallyAdjustsScrollViewInsets="NO" id="ZDg-yQ-Ich" customClass="ViewController" customModule="iOSDemo" customModuleProvider="target" sceneMemberID="viewController">
@@ -111,13 +111,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Demo_01" id="pWz-Tl-QRf"/>
+                    <navigationItem key="navigationItem" title="不可滑动导航栏" id="pWz-Tl-QRf"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9NG-tM-9jD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2591" y="-125"/>
         </scene>
-        <!--Demo_02-->
+        <!--可滑动导航栏-->
         <scene sceneID="ZxM-J8-IOR">
             <objects>
                 <viewController storyboardIdentifier="Demo02ViewController" automaticallyAdjustsScrollViewInsets="NO" id="iQ3-Ra-yQN" customClass="Demo02ViewController" customModule="iOSDemo" customModuleProvider="target" sceneMemberID="viewController">
@@ -130,7 +130,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Demo_02" id="8ai-uM-okI"/>
+                    <navigationItem key="navigationItem" title="可滑动导航栏" id="8ai-uM-okI"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6RI-J7-ZuK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

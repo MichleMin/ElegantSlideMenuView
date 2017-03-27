@@ -20,9 +20,9 @@ public class ElegantSlideMenuView: UIView {
     public var tabItemSelectedTitleColor: UIColor = UIColor(red: 204/255, green: 0, blue: 0, alpha: 1)
     /** 页标签正常时标题颜色,默认为暗黑色 */
     public var tabItemNormalTitleColor: UIColor = UIColor(red: 61/255, green: 61/255, blue: 61/255, alpha: 1)
-    /** 页标签选中时按钮颜色,默认为白色 */
+    /** 页标签选中时按钮背景颜色,默认为白色 */
     public var tabItemSelectedBackgroundColor: UIColor = UIColor.white
-    /** 页标签正常时按钮颜色,默认为白色 */
+    /** 页标签正常时按钮背景颜色,默认为白色 */
     public var tabItemNormalBackgroundColor: UIColor = UIColor.white
     /** 页标签按钮字体大小，默认16 */
     public var tabItemFontSize: CGFloat = 16
@@ -32,15 +32,15 @@ public class ElegantSlideMenuView: UIView {
     public var tabItemWidth: CGFloat = 50
     /** 页标签按钮间隔，默认10 */
     public var tabItemSpace: CGFloat = 10
-    /** 页标签是否设置边距 */
+    /** 页标签是否设置边距，默认True */
     public var isSetTabItemMargin: Bool = true
-    /** 页标签与两边的边距 */
+    /** 页标签与两边的边距，默认9 */
     public var tabMargin: CGFloat = 9
     /** 页面跳转是否开启动画，默认开启 */
     public var isAnimated: Bool = true
     /** 更新当前页面数据，回传当前界面的索引值 */
     public var refreshDataBlock: ((_ index: Int)->Void)?
-    /** 默认选中tap index */
+    /** 默认选中tap index，从 0 开始，默认 0 */
     public var defaultSelectedIndex: Int = 0
     
     fileprivate var topScrollView: UIScrollView! //顶部标签视图
@@ -92,6 +92,7 @@ public class ElegantSlideMenuView: UIView {
         topScrollView.backgroundColor = topScrollViewBackgroundColor
         rootScrollView.frame = CGRect(x: 0, y: topScrollViewHeight, width: self.frame.size.width, height: self.frame.size.height-topScrollViewHeight)
         rootScrollView.contentSize = CGSize(width: self.frame.size.width*CGFloat(viewArray.count), height: 0)
+        
         if isAutomatic {
             topScrollView.isScrollEnabled = false
             topScrollView.contentSize = CGSize(width: self.frame.size.width-2*tabMargin, height: 0)
@@ -99,11 +100,15 @@ public class ElegantSlideMenuView: UIView {
         }else{
             topScrollView.contentSize = CGSize(width: CGFloat(viewArray.count)*tabItemWidth+CGFloat(viewArray.count-1)*tabItemSpace+2*tabMargin, height: 0)
         }
+        
         underLineLayer = CALayer()
-        underLineLayer.frame =  CGRect(x: tabMargin, y: topScrollViewHeight-2, width: tabItemWidth, height: 1.5)
+        let underLinelayerX = tabMargin+CGFloat(defaultSelectedIndex)*(tabItemWidth+tabItemSpace)
+        underLineLayer.frame =  CGRect(x: underLinelayerX, y: topScrollViewHeight-2, width: tabItemWidth, height: 1.5)
         underLineLayer.backgroundColor = tabItemSelectedTitleColor.cgColor
         topScrollView.layer.addSublayer(underLineLayer)
+        
         createTopScrollViewSplite()
+        
         for i in 0..<viewArray.count {
             let slideSwitchDto = viewArray[i]
             let tabItemOffsetX = CGFloat(i)*(tabItemWidth+tabItemSpace)+tabMargin
@@ -118,9 +123,11 @@ public class ElegantSlideMenuView: UIView {
         topMaxOffsetX = topScrollView.contentSize.width - self.frame.size.width
         // 屏幕能容纳的页标签按钮个数
         let btnCount = (self.frame.size.width-2*tabMargin+tabItemSpace)/(tabItemWidth+tabItemSpace)
-        
         minCount = lroundf(Float(btnCount/2))
         maxCount = lroundf(Float(topMaxOffsetX/(tabItemWidth+tabItemSpace)))
+        
+        // 设置默认选中tap index 不为 0 时，使 rootScrollView 偏移
+        rootScrollView.contentOffset = CGPoint(x: CGFloat(defaultSelectedIndex)*self.frame.size.width,y: 0)
     }
     
     /** 给顶部标签栏添加一条分割线 */
@@ -159,14 +166,16 @@ public class ElegantSlideMenuView: UIView {
     /** 选中按钮时，所要执行的动作 */
     func selectedNameButton(sender: UIButton) {
         self.rootScrollView.setContentOffset(CGPoint(x: CGFloat(sender.tag)*self.frame.size.width,y: 0), animated: isAnimated)
-        if sender.tag < minCount {
-            topScrollViewOffSetX = 0
-        }else if sender.tag >= minCount && sender.tag <= (maxCount+minCount){
-            topScrollViewOffSetX = (tabItemSpace+tabItemWidth)*(CGFloat(sender.tag-minCount))+tabMargin
-        }else{
-            topScrollViewOffSetX = topMaxOffsetX
+        if !isAutomatic{
+            if sender.tag < minCount {
+                topScrollViewOffSetX = 0
+            }else if sender.tag >= minCount && sender.tag <= (maxCount+minCount){
+                topScrollViewOffSetX = (tabItemSpace+tabItemWidth)*(CGFloat(sender.tag-minCount))+tabMargin
+            }else{
+                topScrollViewOffSetX = topMaxOffsetX
+            }
+            self.topScrollView.setContentOffset(CGPoint(x:topScrollViewOffSetX, y: 0), animated: true)
         }
-        self.topScrollView.setContentOffset(CGPoint(x:topScrollViewOffSetX, y: 0), animated: true)
         if !tempIndexs.contains(sender.tag){
             if index != sender.tag{
                 index = sender.tag

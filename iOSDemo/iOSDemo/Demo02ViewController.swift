@@ -25,7 +25,7 @@ class Demo02ViewController: UIViewController {
     }
     
     func initSliderMenuView() {
-        let titles = ["推荐","居家","餐厨屋","配件","服装城市","洗护","婴童","杂货","爱乐","美食","休闲"]
+        let titles = ["推荐","下线","餐厨屋","配件","服装城","洗护","婴童","杂货","爱乐","美食","休闲"]
         elegantSlideMenuView = ElegantSlideMenuView(frame: CGRect(x: 0, y: 64, width: self.view.frame.size.width, height: self.view.frame.size.height))
         elegantSlideMenuView.isAutomatic = false
 //        elegantSlideMenuView.tabItemWidth = 70
@@ -45,6 +45,12 @@ class Demo02ViewController: UIViewController {
         for i in 0..<titles.count{
             if i == 0{
                 let demoBaseView = DemoBaseView(frame: CGRect(x: 0, y: 0, width: width, height: height))
+                var slideMenuDto = ElegantSlideMenuDto()
+                slideMenuDto.title = titles[i]
+                slideMenuDto.view = demoBaseView
+                elegantSlideMenuViewArray.append(slideMenuDto)
+            }else if i == 1{
+                let demoBaseView = MySubordinateTableView(frame: CGRect(x: 0, y: 0, width: width, height: height))
                 var slideMenuDto = ElegantSlideMenuDto()
                 slideMenuDto.title = titles[i]
                 slideMenuDto.view = demoBaseView

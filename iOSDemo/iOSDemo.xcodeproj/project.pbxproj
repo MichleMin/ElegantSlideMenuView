@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		393992A51E88BC3900E3D718 /* MySubordinateTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393992A41E88BC3900E3D718 /* MySubordinateTableViewController.swift */; };
+		393992AA1E88BC6300E3D718 /* MySubordinateCell1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393992A61E88BC6300E3D718 /* MySubordinateCell1.swift */; };
+		393992AB1E88BC6300E3D718 /* MySubordinateCell1.xib in Resources */ = {isa = PBXBuildFile; fileRef = 393992A71E88BC6300E3D718 /* MySubordinateCell1.xib */; };
+		393992AC1E88BC6300E3D718 /* MySubordinateCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393992A81E88BC6300E3D718 /* MySubordinateCell2.swift */; };
+		393992AD1E88BC6300E3D718 /* MySubordinateCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 393992A91E88BC6300E3D718 /* MySubordinateCell2.xib */; };
 		397B32941E876405002F65F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397B32931E876405002F65F6 /* AppDelegate.swift */; };
 		397B32961E876405002F65F6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397B32951E876405002F65F6 /* ViewController.swift */; };
 		397B32991E876405002F65F6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 397B32971E876405002F65F6 /* Main.storyboard */; };
@@ -53,6 +58,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		393992A41E88BC3900E3D718 /* MySubordinateTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MySubordinateTableViewController.swift; sourceTree = "<group>"; };
+		393992A61E88BC6300E3D718 /* MySubordinateCell1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MySubordinateCell1.swift; sourceTree = "<group>"; };
+		393992A71E88BC6300E3D718 /* MySubordinateCell1.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MySubordinateCell1.xib; sourceTree = "<group>"; };
+		393992A81E88BC6300E3D718 /* MySubordinateCell2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MySubordinateCell2.swift; sourceTree = "<group>"; };
+		393992A91E88BC6300E3D718 /* MySubordinateCell2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MySubordinateCell2.xib; sourceTree = "<group>"; };
 		397B32901E876405002F65F6 /* iOSDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		397B32931E876405002F65F6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		397B32951E876405002F65F6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -101,10 +111,15 @@
 			children = (
 				397B32B61E876B0E002F65F6 /* ElegantSlideMenuView.xcodeproj */,
 				397B32931E876405002F65F6 /* AppDelegate.swift */,
-				397B32951E876405002F65F6 /* ViewController.swift */,
 				397B32C21E876E95002F65F6 /* DemoListTableViewController.swift */,
+				397B32951E876405002F65F6 /* ViewController.swift */,
 				397B32C01E876E75002F65F6 /* Demo02ViewController.swift */,
+				393992A41E88BC3900E3D718 /* MySubordinateTableViewController.swift */,
 				397B32B01E87664C002F65F6 /* DemoBaseView.swift */,
+				393992A61E88BC6300E3D718 /* MySubordinateCell1.swift */,
+				393992A71E88BC6300E3D718 /* MySubordinateCell1.xib */,
+				393992A81E88BC6300E3D718 /* MySubordinateCell2.swift */,
+				393992A91E88BC6300E3D718 /* MySubordinateCell2.xib */,
 				397B32B21E87672A002F65F6 /* ShareholdeCenterNoCell.swift */,
 				397B32B31E87672A002F65F6 /* ShareholdeCenterNoCell.xib */,
 				397B32971E876405002F65F6 /* Main.storyboard */,
@@ -200,6 +215,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				393992AB1E88BC6300E3D718 /* MySubordinateCell1.xib in Resources */,
+				393992AD1E88BC6300E3D718 /* MySubordinateCell2.xib in Resources */,
 				397B32B51E87672A002F65F6 /* ShareholdeCenterNoCell.xib in Resources */,
 				397B329E1E876405002F65F6 /* LaunchScreen.storyboard in Resources */,
 				397B329B1E876405002F65F6 /* Assets.xcassets in Resources */,
@@ -215,9 +232,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				397B32B41E87672A002F65F6 /* ShareholdeCenterNoCell.swift in Sources */,
+				393992AC1E88BC6300E3D718 /* MySubordinateCell2.swift in Sources */,
 				397B32961E876405002F65F6 /* ViewController.swift in Sources */,
+				393992AA1E88BC6300E3D718 /* MySubordinateCell1.swift in Sources */,
 				397B32C31E876E95002F65F6 /* DemoListTableViewController.swift in Sources */,
 				397B32C11E876E75002F65F6 /* Demo02ViewController.swift in Sources */,
+				393992A51E88BC3900E3D718 /* MySubordinateTableViewController.swift in Sources */,
 				397B32B11E87664C002F65F6 /* DemoBaseView.swift in Sources */,
 				397B32941E876405002F65F6 /* AppDelegate.swift in Sources */,
 			);
@@ -391,6 +411,7 @@
 				397B32A41E876405002F65F6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
