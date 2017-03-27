@@ -3,6 +3,8 @@
 
 目前只支持竖屏。
 
+![image](https://github.com/MichleMin/ElegantSlideMenuView/blob/master/ScreenShots/image1.png)
+![image](https://github.com/MichleMin/ElegantSlideMenuView/blob/master/ScreenShots/image2.png)
 
 ## 一. Installation 安装
     * CocoaPods: pod 'ElegantSlideMenuView'
