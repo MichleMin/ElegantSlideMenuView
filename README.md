@@ -13,7 +13,7 @@
 ## 二. Example 例子
 ```swift
     let titles = ["推荐","下线","餐厨","配件","服装","洗护","婴童","杂货"]
-    elegantSlideMenuView = ElegantSlideMenuView(frame: CGRect(x: 0, y: 64, width: self.view.frame.size.width, height: self.view.frame.size.height))
+    let elegantSlideMenuView = ElegantSlideMenuView(frame: CGRect(x: 0, y: 64, width: self.view.frame.size.width, height: self.view.frame.size.height))
     elegantSlideMenuView.isAutomatic = true
     elegantSlideMenuView.tabItemSelectedTitleColor = UIColor.blue
     elegantSlideMenuView.defaultSelectedIndex = 1
