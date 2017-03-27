@@ -40,5 +40,5 @@
 ```
     * 更多使用例子，请看工程里面的Demo
 ## 三. Requirements 要求
-    - iOS 8.0+ / macOS 10.10+ / tvOS 9.0+ / watchOS 2.0+
-    - Swift 3 (Kingfisher 3.x), Swift 2.3 (Kingfisher 2.x)
+- iOS 8.0+ / macOS 10.10+ / tvOS 9.0+ / watchOS 2.0+
+- Swift 3 (Kingfisher 3.x), Swift 2.3 (Kingfisher 2.x)
