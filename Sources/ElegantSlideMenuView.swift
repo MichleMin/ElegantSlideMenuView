@@ -158,7 +158,15 @@ public class ElegantSlideMenuView: UIView {
     
     /** 选中按钮时，所要执行的动作 */
     func selectedNameButton(sender: UIButton) {
-        self.rootScrollView.setContentOffset(CGPoint(x: CGFloat(sender.tag)*self.frame.size.width,y: 0), animated: true)
+        self.rootScrollView.setContentOffset(CGPoint(x: CGFloat(sender.tag)*self.frame.size.width,y: 0), animated: isAnimated)
+        if sender.tag < minCount {
+            topScrollViewOffSetX = 0
+        }else if sender.tag >= minCount && sender.tag <= (maxCount+minCount){
+            topScrollViewOffSetX = (tabItemSpace+tabItemWidth)*(CGFloat(sender.tag-minCount))+tabMargin
+        }else{
+            topScrollViewOffSetX = topMaxOffsetX
+        }
+        self.topScrollView.setContentOffset(CGPoint(x:topScrollViewOffSetX, y: 0), animated: true)
         if !tempIndexs.contains(sender.tag){
             if index != sender.tag{
                 index = sender.tag
@@ -190,6 +198,7 @@ public class ElegantSlideMenuView: UIView {
     }
     
     var topScrollViewOffSetX: CGFloat = 0
+    
 }
 
 extension ElegantSlideMenuView: UIScrollViewDelegate {
@@ -234,15 +243,25 @@ extension ElegantSlideMenuView: UIScrollViewDelegate {
                 // 当根视图滑过当前界面上页标签按钮一半时，滚动页标签
                 // rootScrollView 滑动了几个屏幕宽度
                 let count = Int(rootScrollView.contentOffset.x/width)
-                if count >= minCount && count <= (maxCount+minCount) {
-                    if (CGFloat(count-maxCount)*(tabItemSpace+tabItemWidth) > topMaxOffsetX) {
+                
+                if count < minCount{
+                    topScrollViewOffSetX = 0
+                }else if count >= minCount && count <= (maxCount+minCount) {
+                    if (count - minCount) == maxCount{
                         topScrollViewOffSetX = topMaxOffsetX
                     }else{
-                        topScrollViewOffSetX = (tabItemSpace+tabItemWidth)*(CGFloat(count-minCount))
+                        topScrollViewOffSetX = (tabItemSpace+tabItemWidth)*(CGFloat(count-minCount))+tabMargin
                     }
-                    topScrollView.setContentOffset(CGPoint(x: topScrollViewOffSetX+tabMargin, y: 0), animated: true)
+                }else{
+                    topScrollViewOffSetX = topMaxOffsetX
                 }
             }
+        }
+    }
+    
+    public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool){
+        if scrollView == rootScrollView{
+            topScrollView.setContentOffset(CGPoint(x: topScrollViewOffSetX, y: 0), animated: true)
         }
     }
     
