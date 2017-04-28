@@ -45,7 +45,7 @@ public class ElegantSlideMenuView: UIView {
     
     fileprivate var topScrollView: UIScrollView! //顶部标签视图
     fileprivate var rootScrollView: UIScrollView! // 主视图
-    fileprivate var underLineLayer: CALayer! // 滚动条
+    fileprivate var underLineLayer: UIView! // 滚动条
     fileprivate var btns: [UIButton] = [] //所有button
     fileprivate var topMaxOffsetX: CGFloat = 0.0 // 顶部标签最大偏移量
     fileprivate var minCount: Int! // topScrollView 最小偏移个数
@@ -54,6 +54,7 @@ public class ElegantSlideMenuView: UIView {
     fileprivate var tempIndexs: [Int] = [0] // 索引值数组
     fileprivate var indexFloat: CGFloat = 0.0 // rootScrollView 拖动距离的倍数
     fileprivate var tempIndex: Int = 0
+    fileprivate var topScrollViewOffSetX: CGFloat = 0 // topScrollView 的 x 轴偏移量
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -101,11 +102,11 @@ public class ElegantSlideMenuView: UIView {
             topScrollView.contentSize = CGSize(width: CGFloat(viewArray.count)*tabItemWidth+CGFloat(viewArray.count-1)*tabItemSpace+2*tabMargin, height: 0)
         }
         
-        underLineLayer = CALayer()
+        underLineLayer = UIView()
         let underLinelayerX = tabMargin+CGFloat(defaultSelectedIndex)*(tabItemWidth+tabItemSpace)
         underLineLayer.frame =  CGRect(x: underLinelayerX, y: topScrollViewHeight-2, width: tabItemWidth, height: 1.5)
-        underLineLayer.backgroundColor = tabItemSelectedTitleColor.cgColor
-        topScrollView.layer.addSublayer(underLineLayer)
+        underLineLayer.backgroundColor = tabItemSelectedTitleColor
+        topScrollView.addSubview(underLineLayer)
         
         createTopScrollViewSplite()
         
@@ -205,8 +206,6 @@ public class ElegantSlideMenuView: UIView {
         let size = (str as NSString).size(attributes: attributes)
         return size
     }
-    
-    var topScrollViewOffSetX: CGFloat = 0
     
 }
 
