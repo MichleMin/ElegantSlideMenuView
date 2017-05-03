@@ -42,6 +42,8 @@ public class ElegantSlideMenuView: UIView {
     public var refreshDataBlock: ((_ index: Int)->Void)?
     /** 默认选中tap index，从 0 开始，默认 0 */
     public var defaultSelectedIndex: Int = 0
+    /** 滚动条位置，默认 bottom */
+    public var underLinePosition: UnderLinePosition = .bottom
     
     fileprivate var topScrollView: UIScrollView! //顶部标签视图
     fileprivate var rootScrollView: UIScrollView! // 主视图
@@ -104,7 +106,8 @@ public class ElegantSlideMenuView: UIView {
         
         underLineLayer = UIView()
         let underLinelayerX = tabMargin+CGFloat(defaultSelectedIndex)*(tabItemWidth+tabItemSpace)
-        underLineLayer.frame =  CGRect(x: underLinelayerX, y: topScrollViewHeight-2, width: tabItemWidth, height: 1.5)
+        let underLineLayerY = underLinePosition == .bottom ? topScrollViewHeight-2:0
+        underLineLayer.frame =  CGRect(x: underLinelayerX, y: underLineLayerY, width: tabItemWidth, height: 1.5)
         underLineLayer.backgroundColor = tabItemSelectedTitleColor
         topScrollView.addSubview(underLineLayer)
         
@@ -113,7 +116,8 @@ public class ElegantSlideMenuView: UIView {
         for i in 0..<viewArray.count {
             let slideSwitchDto = viewArray[i]
             let tabItemOffsetX = CGFloat(i)*(tabItemWidth+tabItemSpace)+tabMargin
-            let frame = CGRect(x: tabItemOffsetX, y: 0, width: tabItemWidth, height: topScrollViewHeight-2)
+            let y: CGFloat = underLinePosition == .bottom ? 0:2
+            let frame = CGRect(x: tabItemOffsetX, y: y, width: tabItemWidth, height: topScrollViewHeight-2)
             buidBtn(title: slideSwitchDto.title, frame: frame, tag: i)
             let rootViewOffSeX = CGFloat(i)*self.frame.size.width
             slideSwitchDto.view.frame.origin = CGPoint(x: rootViewOffSeX,y: 0)
@@ -286,4 +290,10 @@ extension ElegantSlideMenuView: UIScrollViewDelegate {
             }
         }
     }
+}
+
+/** 滚动条位置 */
+public enum UnderLinePosition{
+    case top
+    case bottom
 }

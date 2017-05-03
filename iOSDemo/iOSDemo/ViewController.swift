@@ -30,6 +30,7 @@ class ViewController: UIViewController {
         elegantSlideMenuView.isAutomatic = true
         elegantSlideMenuView.tabItemSelectedTitleColor = UIColor.blue
         elegantSlideMenuView.defaultSelectedIndex = 1
+        elegantSlideMenuView.underLinePosition = .top
         getElegantSlideMenuView(titles: titles)
         self.view.addSubview(elegantSlideMenuView)
         elegantSlideMenuView.viewArray = elegantSlideMenuViewArray
