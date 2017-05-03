@@ -116,7 +116,7 @@ public class ElegantSlideMenuView: UIView {
         for i in 0..<viewArray.count {
             let slideSwitchDto = viewArray[i]
             let tabItemOffsetX = CGFloat(i)*(tabItemWidth+tabItemSpace)+tabMargin
-            let y: CGFloat = underLinePosition == .bottom ? 0:2
+            let y: CGFloat = underLinePosition == .bottom ? 0:1.5
             let frame = CGRect(x: tabItemOffsetX, y: y, width: tabItemWidth, height: topScrollViewHeight-2)
             buidBtn(title: slideSwitchDto.title, frame: frame, tag: i)
             let rootViewOffSeX = CGFloat(i)*self.frame.size.width

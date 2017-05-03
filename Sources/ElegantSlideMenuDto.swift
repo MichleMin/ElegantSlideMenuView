@@ -17,4 +17,9 @@ public struct ElegantSlideMenuDto {
     public init() {
         
     }
+    
+    public init(title: String, view: UIView) {
+        self.title = title
+        self.view = view
+    }
 }
