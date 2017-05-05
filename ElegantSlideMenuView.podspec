@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "ElegantSlideMenuView"
-  s.version      = "1.0.6"
+  s.version      = "1.0.7"
   s.summary      = "A very easy to integrate the horizontal navigation menu."
   s.homepage     = "https://github.com/MichleMin/ElegantSlideMenuView"
   s.license      = { :type => "MIT", :file => "LICENSE" }
