@@ -38,7 +38,10 @@ public class ElegantSlideMenuView: UIView {
     public var tabMargin: CGFloat = 9
     /** 页面跳转是否开启动画，默认开启 */
     public var isAnimated: Bool = true
-    /** 更新当前页面数据，回传当前界面的索引值 */
+    /** 
+     *  更新当前页面数据，回传当前界面的索引值。
+     *  注意：必须在buildUI 方法调用之前实现
+     */
     public var refreshDataBlock: ((_ index: Int)->Void)?
     /** 默认选中tap index，从 0 开始，默认 0 */
     public var defaultSelectedIndex: Int = 0
@@ -133,6 +136,11 @@ public class ElegantSlideMenuView: UIView {
         
         // 设置默认选中tap index 不为 0 时，使 rootScrollView 偏移
         rootScrollView.contentOffset = CGPoint(x: CGFloat(defaultSelectedIndex)*self.frame.size.width,y: 0)
+        
+        if refreshDataBlock != nil {
+            refreshDataBlock!(defaultSelectedIndex)
+        }
+    
     }
     
     /** 给顶部标签栏添加一条分割线 */

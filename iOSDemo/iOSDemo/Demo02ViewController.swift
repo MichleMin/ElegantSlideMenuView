@@ -32,10 +32,10 @@ class Demo02ViewController: UIViewController {
         getElegantSlideMenuView(titles: titles)
         self.view.addSubview(elegantSlideMenuView)
         elegantSlideMenuView.viewArray = elegantSlideMenuViewArray
-        elegantSlideMenuView.buildUI()
         elegantSlideMenuView.refreshDataBlock = { index in
             print("\(index)")
         }
+        elegantSlideMenuView.buildUI()
     }
     
     func getElegantSlideMenuView(titles: [String]){
