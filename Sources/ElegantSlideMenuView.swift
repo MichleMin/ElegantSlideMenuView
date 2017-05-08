@@ -38,7 +38,7 @@ public class ElegantSlideMenuView: UIView {
     public var tabMargin: CGFloat = 9
     /** 页面跳转是否开启动画，默认开启 */
     public var isAnimated: Bool = true
-    /** 
+    /**
      *  更新当前页面数据，回传当前界面的索引值。
      *  注意：必须在buildUI 方法调用之前实现
      */
@@ -96,7 +96,7 @@ public class ElegantSlideMenuView: UIView {
         }
         topScrollView.frame = CGRect(x: 0, y: 0, width: self.frame.size.width, height: topScrollViewHeight)
         topScrollView.backgroundColor = topScrollViewBackgroundColor
-        rootScrollView.frame = CGRect(x: 0, y: topScrollViewHeight, width: self.frame.size.width, height: self.frame.size.height-topScrollViewHeight)
+        rootScrollView.frame = CGRect(x: 0, y: topScrollViewHeight+0.5, width: self.frame.size.width, height: self.frame.size.height-topScrollViewHeight-0.5)
         rootScrollView.contentSize = CGSize(width: self.frame.size.width*CGFloat(viewArray.count), height: 0)
         
         if isAutomatic {
@@ -124,7 +124,7 @@ public class ElegantSlideMenuView: UIView {
             buidBtn(title: slideSwitchDto.title, frame: frame, tag: i)
             let rootViewOffSeX = CGFloat(i)*self.frame.size.width
             slideSwitchDto.view.frame.origin = CGPoint(x: rootViewOffSeX,y: 0)
-            slideSwitchDto.view.frame.size = CGSize(width: self.frame.size.width, height: self.frame.size.height-topScrollViewHeight)
+            slideSwitchDto.view.frame.size = CGSize(width: self.frame.size.width, height: self.frame.size.height-topScrollViewHeight-0.5)
             rootScrollView.addSubview(slideSwitchDto.view)
         }
         
@@ -140,16 +140,16 @@ public class ElegantSlideMenuView: UIView {
         if refreshDataBlock != nil {
             refreshDataBlock!(defaultSelectedIndex)
         }
-    
+        
     }
     
     /** 给顶部标签栏添加一条分割线 */
     func createTopScrollViewSplite(){
-        let frame = CGRect(x: 0, y: topScrollViewHeight-0.3, width: self.frame.size.width, height: 0.3)
+        let frame = CGRect(x: 0, y: topScrollViewHeight+0.2, width: self.frame.size.width, height: 0.3)
         let layer = CALayer()
         layer.backgroundColor = UIColor(red: 121/255, green: 121/255, blue: 121/255, alpha: 1).cgColor
         layer.frame = frame
-        topScrollView.layer.addSublayer(layer)
+        self.layer.addSublayer(layer)
     }
     
     /** 创建页标签按钮 */
@@ -260,30 +260,39 @@ extension ElegantSlideMenuView: UIScrollViewDelegate {
             // 滚动条
             underLineLayer.frame.origin.x = (scrollView.contentOffset.x/width)*underLineOffsetX+tabMargin
             if !isAutomatic {
-                // 当根视图滑过当前界面上页标签按钮一半时，滚动页标签
+                // 当根视图滑过当前界面上所显示页标签按钮一半时，滚动页标签
                 // rootScrollView 滑动了几个屏幕宽度
                 let count = Int(rootScrollView.contentOffset.x/width)
-                
                 if count < minCount{
                     topScrollViewOffSetX = 0
                 }else if count >= minCount && count <= (maxCount+minCount) {
                     if (count - minCount) == maxCount{
                         topScrollViewOffSetX = topMaxOffsetX
                     }else{
-                        topScrollViewOffSetX = (tabItemSpace+tabItemWidth)*(CGFloat(count-minCount))+tabMargin
+                        topScrollViewOffSetX = (tabItemSpace+tabItemWidth)*(CGFloat(count-minCount+1))+tabMargin
                     }
                 }else{
                     topScrollViewOffSetX = topMaxOffsetX
+                }
+                if !scrollView.isTracking{
+                    if topScrollViewOffSetX >= topMaxOffsetX{
+                        topScrollViewOffSetX = topMaxOffsetX
+                    }
+                    topScrollView.setContentOffset(CGPoint(x: topScrollViewOffSetX, y: 0), animated: true)
                 }
             }
         }
     }
     
-    public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool){
-        if scrollView == rootScrollView{
-            topScrollView.setContentOffset(CGPoint(x: topScrollViewOffSetX, y: 0), animated: true)
-        }
-    }
+    //    public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool){
+    //        if scrollView == rootScrollView{
+    //            print("topScrollViewOffSetX: \(topScrollViewOffSetX)")
+    //            if topScrollViewOffSetX >= topMaxOffsetX{
+    //                topScrollViewOffSetX = topMaxOffsetX
+    //            }
+    //            topScrollView.setContentOffset(CGPoint(x: topScrollViewOffSetX, y: 0), animated: true)
+    //        }
+    //    }
     
     public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView){
         let width = self.frame.size.width
