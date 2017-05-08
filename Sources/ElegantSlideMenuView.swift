@@ -91,55 +91,64 @@ public class ElegantSlideMenuView: UIView {
     
     /** 重建UI */
     public func buildUI() {
-        if !isSetTabItemMargin {
-            tabMargin = 0
+        
+        /// 修复重复添加子 view
+        _ = rootScrollView.subviews.map {$0.removeFromSuperview()}
+        _ = topScrollView.subviews.map {$0.removeFromSuperview()}
+        
+        /// 修复传入空数组时，导致出现 0 作为除数时出现异常
+        if viewArray.count > 0 {
+            if !isSetTabItemMargin {
+                tabMargin = 0
+            }
+            topScrollView.frame = CGRect(x: 0, y: 0, width: self.frame.size.width, height: topScrollViewHeight)
+            topScrollView.backgroundColor = topScrollViewBackgroundColor
+            rootScrollView.frame = CGRect(x: 0, y: topScrollViewHeight+0.5, width: self.frame.size.width, height: self.frame.size.height-topScrollViewHeight-0.5)
+            rootScrollView.contentSize = CGSize(width: self.frame.size.width*CGFloat(viewArray.count), height: 0)
+            
+            if isAutomatic {
+                topScrollView.isScrollEnabled = false
+                topScrollView.contentSize = CGSize(width: self.frame.size.width-2*tabMargin, height: 0)
+                tabItemWidth = (topScrollView.frame.size.width-CGFloat(viewArray.count-1)*tabItemSpace-tabMargin*2)/CGFloat(viewArray.count)
+            }else{
+                topScrollView.contentSize = CGSize(width: CGFloat(viewArray.count)*tabItemWidth+CGFloat(viewArray.count-1)*tabItemSpace+2*tabMargin, height: 0)
+            }
+            
+            underLineLayer = UIView()
+            let underLinelayerX = tabMargin+CGFloat(defaultSelectedIndex)*(tabItemWidth+tabItemSpace)
+            let underLineLayerY = underLinePosition == .bottom ? topScrollViewHeight-2:0
+            underLineLayer.frame =  CGRect(x: underLinelayerX, y: underLineLayerY, width: tabItemWidth, height: 1.5)
+            underLineLayer.backgroundColor = tabItemSelectedTitleColor
+            topScrollView.addSubview(underLineLayer)
+            
+            createTopScrollViewSplite()
+            
+            for i in 0..<viewArray.count {
+                let slideSwitchDto = viewArray[i]
+                let tabItemOffsetX = CGFloat(i)*(tabItemWidth+tabItemSpace)+tabMargin
+                let y: CGFloat = underLinePosition == .bottom ? 0:1.5
+                let frame = CGRect(x: tabItemOffsetX, y: y, width: tabItemWidth, height: topScrollViewHeight-2)
+                buidBtn(title: slideSwitchDto.title, frame: frame, tag: i)
+                let rootViewOffSeX = CGFloat(i)*self.frame.size.width
+                slideSwitchDto.view.frame.origin = CGPoint(x: rootViewOffSeX,y: 0)
+                slideSwitchDto.view.frame.size = CGSize(width: self.frame.size.width, height: self.frame.size.height-topScrollViewHeight-0.5)
+                rootScrollView.addSubview(slideSwitchDto.view)
+            }
+            
+            topMaxOffsetX = topScrollView.contentSize.width - self.frame.size.width
+            // 屏幕能容纳的页标签按钮个数
+            let btnCount = (self.frame.size.width-2*tabMargin+tabItemSpace)/(tabItemWidth+tabItemSpace)
+            minCount = lroundf(Float(btnCount/2))
+            maxCount = lroundf(Float(topMaxOffsetX/(tabItemWidth+tabItemSpace)))
+            
+            // 设置默认选中tap index 不为 0 时，使 rootScrollView 偏移
+            rootScrollView.contentOffset = CGPoint(x: CGFloat(defaultSelectedIndex)*self.frame.size.width,y: 0)
+            
+            if refreshDataBlock != nil {
+                refreshDataBlock!(defaultSelectedIndex)
+            }
         }
-        topScrollView.frame = CGRect(x: 0, y: 0, width: self.frame.size.width, height: topScrollViewHeight)
-        topScrollView.backgroundColor = topScrollViewBackgroundColor
-        rootScrollView.frame = CGRect(x: 0, y: topScrollViewHeight+0.5, width: self.frame.size.width, height: self.frame.size.height-topScrollViewHeight-0.5)
-        rootScrollView.contentSize = CGSize(width: self.frame.size.width*CGFloat(viewArray.count), height: 0)
-        
-        if isAutomatic {
-            topScrollView.isScrollEnabled = false
-            topScrollView.contentSize = CGSize(width: self.frame.size.width-2*tabMargin, height: 0)
-            tabItemWidth = (topScrollView.frame.size.width-CGFloat(viewArray.count-1)*tabItemSpace-tabMargin*2)/CGFloat(viewArray.count)
-        }else{
-            topScrollView.contentSize = CGSize(width: CGFloat(viewArray.count)*tabItemWidth+CGFloat(viewArray.count-1)*tabItemSpace+2*tabMargin, height: 0)
-        }
-        
-        underLineLayer = UIView()
-        let underLinelayerX = tabMargin+CGFloat(defaultSelectedIndex)*(tabItemWidth+tabItemSpace)
-        let underLineLayerY = underLinePosition == .bottom ? topScrollViewHeight-2:0
-        underLineLayer.frame =  CGRect(x: underLinelayerX, y: underLineLayerY, width: tabItemWidth, height: 1.5)
-        underLineLayer.backgroundColor = tabItemSelectedTitleColor
-        topScrollView.addSubview(underLineLayer)
-        
-        createTopScrollViewSplite()
-        
-        for i in 0..<viewArray.count {
-            let slideSwitchDto = viewArray[i]
-            let tabItemOffsetX = CGFloat(i)*(tabItemWidth+tabItemSpace)+tabMargin
-            let y: CGFloat = underLinePosition == .bottom ? 0:1.5
-            let frame = CGRect(x: tabItemOffsetX, y: y, width: tabItemWidth, height: topScrollViewHeight-2)
-            buidBtn(title: slideSwitchDto.title, frame: frame, tag: i)
-            let rootViewOffSeX = CGFloat(i)*self.frame.size.width
-            slideSwitchDto.view.frame.origin = CGPoint(x: rootViewOffSeX,y: 0)
-            slideSwitchDto.view.frame.size = CGSize(width: self.frame.size.width, height: self.frame.size.height-topScrollViewHeight-0.5)
-            rootScrollView.addSubview(slideSwitchDto.view)
-        }
-        
-        topMaxOffsetX = topScrollView.contentSize.width - self.frame.size.width
-        // 屏幕能容纳的页标签按钮个数
-        let btnCount = (self.frame.size.width-2*tabMargin+tabItemSpace)/(tabItemWidth+tabItemSpace)
-        minCount = lroundf(Float(btnCount/2))
-        maxCount = lroundf(Float(topMaxOffsetX/(tabItemWidth+tabItemSpace)))
-        
-        // 设置默认选中tap index 不为 0 时，使 rootScrollView 偏移
-        rootScrollView.contentOffset = CGPoint(x: CGFloat(defaultSelectedIndex)*self.frame.size.width,y: 0)
-        
-        if refreshDataBlock != nil {
-            refreshDataBlock!(defaultSelectedIndex)
-        }
+
         
     }
     
