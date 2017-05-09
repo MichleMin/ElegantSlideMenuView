@@ -64,7 +64,7 @@ public class ElegantSlideMenuView: UIView {
     public override init(frame: CGRect) {
         super.init(frame: frame)
         topScrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: topScrollViewHeight))
-        topScrollView.backgroundColor = UIColor.blue
+        topScrollView.backgroundColor = UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1)
         topScrollView.isPagingEnabled = false
         topScrollView.showsVerticalScrollIndicator = false
         topScrollView.showsHorizontalScrollIndicator = false
@@ -147,6 +147,16 @@ public class ElegantSlideMenuView: UIView {
             if refreshDataBlock != nil {
                 refreshDataBlock!(defaultSelectedIndex)
             }
+        }else{
+            // 无内容时，展示的图片
+            let imageView = UIImageView(frame: CGRect(x: self.frame.size.width/2-26, y: (self.frame.size.height-topScrollViewHeight)/2-60, width: 53, height: 45))
+            if let pathResource = Bundle.main.path(forResource: "ElegantSlideMenuView", ofType: "bundle", inDirectory: "Frameworks/ElegantSlideMenuView.framework/"){
+                if let bundle = Bundle(path: pathResource){
+                    imageView.image = UIImage(named: "暂无内容_small", in: bundle, compatibleWith: nil)
+                }
+            }
+            
+            rootScrollView.addSubview(imageView)
         }
 
         

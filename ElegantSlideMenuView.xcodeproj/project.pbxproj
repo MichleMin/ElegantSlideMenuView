@@ -7,11 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3966DB871EC14D250086E0DD /* ElegantSlideMenuView.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3966DB861EC14D250086E0DD /* ElegantSlideMenuView.bundle */; };
 		397B32591E87602D002F65F6 /* ElegantSlideMenuDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397B32551E87602D002F65F6 /* ElegantSlideMenuDto.swift */; };
 		397B325B1E87602D002F65F6 /* ElegantSlideMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397B32571E87602D002F65F6 /* ElegantSlideMenuView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3966DB861EC14D250086E0DD /* ElegantSlideMenuView.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ElegantSlideMenuView.bundle; sourceTree = "<group>"; };
 		397B32451E875F3F002F65F6 /* ElegantSlideMenuView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ElegantSlideMenuView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		397B32551E87602D002F65F6 /* ElegantSlideMenuDto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElegantSlideMenuDto.swift; sourceTree = "<group>"; };
 		397B32571E87602D002F65F6 /* ElegantSlideMenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElegantSlideMenuView.swift; sourceTree = "<group>"; };
@@ -29,9 +31,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3966DB851EC14D0E0086E0DD /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				3966DB861EC14D250086E0DD /* ElegantSlideMenuView.bundle */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		397B323B1E875F3F002F65F6 = {
 			isa = PBXGroup;
 			children = (
+				3966DB851EC14D0E0086E0DD /* Resources */,
 				397B32541E87602D002F65F6 /* Sources */,
 				397B32461E875F3F002F65F6 /* Products */,
 			);
@@ -124,6 +135,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3966DB871EC14D250086E0DD /* ElegantSlideMenuView.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
